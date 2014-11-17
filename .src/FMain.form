@@ -1,0 +1,58 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,76,16)
+  Icon = Picture["icon:/16/html"]
+  { apache_label TextLabel
+    MoveScaled(1,1,15,4)
+    Text = ("Apache Version:")
+  }
+  { mysql_label TextLabel
+    MoveScaled(2,6,15,4)
+    Text = ("Mysql Version:")
+  }
+  { php_label TextLabel
+    MoveScaled(3,11,15,4)
+    Text = ("PHP Version:")
+  }
+  { apache_switch SwitchButton
+    MoveScaled(45,1,16,4)
+  }
+  { apache_btn_restart Button
+    MoveScaled(63,1,12,4)
+    Text = ("Restart")
+    Picture = Picture["icon:/16/refresh"]
+  }
+  { mysql_switch SwitchButton
+    MoveScaled(45,6,16,4)
+  }
+  { mysql_btn_restart Button
+    MoveScaled(63,6,12,4)
+    Text = ("Restart")
+    Picture = Picture["icon:/16/refresh"]
+  }
+  { apache_version TextLabel
+    MoveScaled(15,1,14,4)
+  }
+  { mysql_version TextLabel
+    MoveScaled(15,6,12,4)
+  }
+  { php_version TextLabel
+    MoveScaled(15,11,12,4)
+  }
+  { localhost_btn Button
+    MoveScaled(29,11,15,4)
+    Text = ("Local Host")
+    Picture = Picture["icon:/16/internet"]
+  }
+  { Button1 Button
+    MoveScaled(63,11,12,4)
+    Text = ("WWW")
+    Picture = Picture["icon:/16/directory"]
+  }
+  { Button2 Button
+    MoveScaled(45,11,17,4)
+    Text = ("phpmyadmin")
+    Picture = Picture["icon:/16/internet"]
+  }
+}

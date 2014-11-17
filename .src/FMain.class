@@ -1,0 +1,69 @@
+' Gambas class file
+
+Public Sub Form_Open()
+Dim apacheversion As String
+Dim mysqlversion As String
+Dim phpversion As String
+
+Me.Center
+
+Shell "apache2 -v | grep version" To apacheversion
+Shell "mysql -V | gawk '{ print $3 }'" To mysqlversion
+Shell "php -v | grep PHP" To phpversion
+apacheversion = Replace(apacheversion, "Server version: Apache/", "")
+apacheversion = Replace(apacheversion, "(Ubuntu)", "")
+
+
+phpversion = Replace(phpversion, "(cli) (built: Oct 29 2014 11:59:10)", "")
+phpversion = Replace(phpversion, "-1ubuntu4.5", "")
+phpversion = Replace(phpversion, "Copyright (c) 1997-2014 The PHP Group", "")
+phpversion = Replace(phpversion, "PHP", "")
+Print phpversion
+
+apache_version.Text = apacheversion
+mysql_version.Text = mysqlversion
+php_version.text = phpversion
+
+End
+
+Public Sub apache_switch_Click()
+
+
+
+End
+
+Public Sub mysql_switch_Click()
+
+  
+
+End
+
+Public Sub Button1_Click()
+
+  Shell "xdg-open /var/www"
+
+End
+
+Public Sub localhost_btn_Click()
+
+  Shell "xdg-open http://localhost"
+
+End
+
+Public Sub apache_btn_restart_Click()
+
+  Shell "gksu service apache2 restart"
+
+End
+
+Public Sub mysql_btn_restart_Click()
+
+  Shell "gksu service mysql restart"
+
+End
+
+Public Sub Button2_Click()
+
+  Shell "xdg-open http://localhost/phpmyadmin/"
+
+End
