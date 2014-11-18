@@ -36,11 +36,11 @@ Public Sub Form_Open()
   
   'Check if apache2 is runing
   If isRunning("apache2") = True Then
-    mysql_switch.Value = True
+    apache_switch.Value = True
   Endif
   
   'Check if mysql is runing
-  If isRunning("mysql") = True Then
+  If isRunning("mysqld") = True Then
     mysql_switch.Value = True
   Endif
   
@@ -50,10 +50,10 @@ Public Sub apache_switch_Click()
   
   If apache_switch.Value = True Then
     'Start
-    
+    Shell "gksu service apache2 start"
   Else
     'Stop
-    
+    Shell "gksu service apache2 stop"
   Endif
   
 End
@@ -62,10 +62,10 @@ Public Sub mysql_switch_Click()
   
   If mysql_switch.Value = True Then
     'Start
-    
+    Shell "gksu service mysql start"
   Else
     'Stop
-    
+    Shell "gksu service mysql stop"
   Endif
   
 End
