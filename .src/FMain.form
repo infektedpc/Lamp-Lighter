@@ -2,7 +2,9 @@
 
 { Form Form
   MoveScaled(0,0,76,16)
+  Text = ("Lamp-Lighter")
   Icon = Picture["icon:/16/html"]
+  Resizable = False
   { apache_label TextLabel
     MoveScaled(1,1,15,4)
     Text = ("Apache Version:")

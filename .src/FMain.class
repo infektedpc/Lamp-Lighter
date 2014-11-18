@@ -1,69 +1,111 @@
 ' Gambas class file
 
 Public Sub Form_Open()
-Dim apacheversion As String
-Dim mysqlversion As String
-Dim phpversion As String
-
-Me.Center
-
-Shell "apache2 -v | grep version" To apacheversion
-Shell "mysql -V | gawk '{ print $3 }'" To mysqlversion
-Shell "php -v | grep PHP" To phpversion
-apacheversion = Replace(apacheversion, "Server version: Apache/", "")
-apacheversion = Replace(apacheversion, "(Ubuntu)", "")
-
-
-phpversion = Replace(phpversion, "(cli) (built: Oct 29 2014 11:59:10)", "")
-phpversion = Replace(phpversion, "-1ubuntu4.5", "")
-phpversion = Replace(phpversion, "Copyright (c) 1997-2014 The PHP Group", "")
-phpversion = Replace(phpversion, "PHP", "")
-Print phpversion
-
-apache_version.Text = apacheversion
-mysql_version.Text = mysqlversion
-php_version.text = phpversion
-
+  
+  Dim splitapacheversion As String[]
+  Dim apacheversion As String
+  Dim mysqlversion As String
+  Dim phpversion As String
+  
+  Me.Center
+  
+  'Apache2
+  Shell "apache2 -v" To apacheversion
+  splitapacheversion = Split(apacheversion, "\n")
+  apacheversion = splitapacheversion[0]
+  apacheversion = Mid$(apacheversion, InStr(apacheversion, "/") + 1)
+  apacheversion = Left$(apacheversion, InStr(apacheversion, "(") - 1)
+  'Set Text
+  apache_version.Text = apacheversion
+  
+  'Mysql
+  Shell "mysql -V" To mysqlversion
+  mysqlversion = Mid$(mysqlversion, InStr(mysqlversion, "Ver") + 3)
+  mysqlversion = Left$(mysqlversion, InStr(mysqlversion, "Distrib") - 1)
+  mysqlversion = Trim(mysqlversion)
+  'Set Text
+  mysql_version.Text = mysqlversion
+  
+  'PHP
+  Shell "php -v" To phpversion
+  phpversion = Mid$(phpversion, InStr(phpversion, "PHP") + 3)
+  phpversion = Left$(phpversion, InStr(phpversion, "-") - 1)
+  phpversion = Trim(phpversion)
+  'Set Text
+  php_version.text = phpversion
+  
+  'Check if apache2 is runing
+  If isRunning("apache2") = True Then
+    mysql_switch.Value = True
+  Endif
+  
+  'Check if mysql is runing
+  If isRunning("mysql") = True Then
+    mysql_switch.Value = True
+  Endif
+  
 End
 
 Public Sub apache_switch_Click()
-
-
-
+  
+  If apache_switch.Value = True Then
+    'Start
+    
+  Else
+    'Stop
+    
+  Endif
+  
 End
 
 Public Sub mysql_switch_Click()
-
   
-
+  If mysql_switch.Value = True Then
+    'Start
+    
+  Else
+    'Stop
+    
+  Endif
+  
 End
 
 Public Sub Button1_Click()
-
+  
   Shell "xdg-open /var/www"
-
+  
 End
 
 Public Sub localhost_btn_Click()
-
+  
   Shell "xdg-open http://localhost"
-
+  
 End
 
 Public Sub apache_btn_restart_Click()
-
+  
   Shell "gksu service apache2 restart"
-
+  
 End
 
 Public Sub mysql_btn_restart_Click()
-
+  
   Shell "gksu service mysql restart"
-
+  
 End
 
 Public Sub Button2_Click()
-
+  
   Shell "xdg-open http://localhost/phpmyadmin/"
+  
+End
 
+Public Function isRunning(sProcess As String) As Boolean
+  
+  Dim sOutput As String
+  
+  Exec ["pgrep", "-x", "-c", Shell(sProcess)] To sOutput
+  If CInt(Trim(sOutput)) > 0 Then Return True
+  Return False
+  
 End
